@@ -1,5 +1,7 @@
 const buttonSave = document.getElementById("Save");
 const buttonAdd = document.getElementById("Add");
+const buttonRemove = document.getElementsByClassName("Remove"); // Array of button tag
+console.log(buttonRemove);
 let domParser = new DOMParser();
 class Question_Answers {
     question
@@ -29,10 +31,17 @@ let newQA_String = domParser.parseFromString(`
     </div>`,"text/html");
 let newQA_Node = newQA_String.body.firstChild;
 let container = document.getElementById("containerQAs");
-container.appendChild(newQA_Node);    
+container.appendChild(newQA_Node);
+    //Remove 
+    for(let i = 0 ; i <= NumberQuestions ; i++) {
+        let buttonRemove_item = buttonRemove[i];
+        buttonRemove_item.addEventListener("click",() => {
+            let item_QA = document.getElementsByClassName(`Q${i+1}`);
+            item_QA[0].remove();
+        });
+    }
 });
 
-// Delete
 
 
 
