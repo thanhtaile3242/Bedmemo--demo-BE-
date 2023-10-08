@@ -1,6 +1,11 @@
 const buttonSave = document.getElementById("Save");
 const buttonAdd = document.getElementById("Add");
 let domParser = new DOMParser();
+class Folder {
+    folderName
+    folderBio
+    questionsArray
+}
 class Question_Answers {
     question
     answerA
@@ -79,24 +84,24 @@ buttonSave.addEventListener('click', function () {
             }};
         if(countRadio === NumberQuestions){
         checkRadio = true}
-        // Validate fulfill Questions and Answers
+        // Validate fulfill FolderInfo, Questions and Answers
     let allTextAreaTags = document.getElementsByTagName("textarea");
     let checkBlank = true;
         for(let i = 0; i < allTextAreaTags.length;i++){
             if(allTextAreaTags[i].value === ''){
                 checkBlank = false}};
-    // Get data for each item_QA object
+    // 3. Get data for each item_QA object
     if(checkBlank && checkRadio){
         for(let i = 0; i < NumberQuestions; i++) {
             let item_QA = new Question_Answers();
-            // Get question and answers
+        // Get question and answers
             let question_Array = document.getElementsByClassName(`q${i+1}`);
             item_QA.question = question_Array[0].value;
             item_QA.answerA = question_Array[1].value;
             item_QA.answerB = question_Array[2].value;
             item_QA.answerC = question_Array[3].value;
             item_QA.answerD = question_Array[4].value;
-            // Get the right answer
+        // Get the right answer
             for (let k = 0; k < question_Array.length; k++){
                 if(question_Array[k].checked){
                     item_QA.rightAnswer = question_Array[k].value;
@@ -106,5 +111,14 @@ buttonSave.addEventListener('click', function () {
     }else{
         alert("Please fulfill your folder");
     }
-    console.log(QA_Array);
+    // 4. Create a new folder object
+    let folderName = document.getElementById("folderName").value;
+    let folderBio = document.getElementById("folderBio").value;
+        // Fill the properties of the folder object  
+    let folder = new Folder();
+    folder.folderName = folderName;
+    folder.folderBio = folderBio;
+    folder.questionsArray = QA_Array;
+        // Print the result
+    console.log(folder);
 });
